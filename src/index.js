@@ -2,20 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-/*
-class Square extends React.Component {
-
-  render() {
-    return (
-      <button className="square"
-        onClick={() => this.props.onClick()}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
-}
-*/
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -48,8 +34,33 @@ class Board extends React.Component {
     );
   }
 
+  generateBoard = (numOfColumns, numOfRows) => {
+    let board = []
+    // Outer loop to create parent
+    for (let i = 0; i < numOfColumns ; i++) {
+      let children = []
+
+      // Inner loop to create children
+      for (let j = 0; j < numOfRows; j++) {
+        children.push ( this.renderSquare(j+i*3) )
+      }
+
+      board.push(
+        <div className="board-row">
+          {children}
+      </div>)
+    }
+    return board
+  }
+
   render() {
+
     return (
+      <div>
+        {this.generateBoard(3,3)}
+      </div>
+
+      /*
       <div>
         <div className="board-row">
           {this.renderSquare(0)}
@@ -65,30 +76,14 @@ class Board extends React.Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
-
         </div>
       </div>
-
+      */
 
     );
   }
 }
-/*
-class ShoppingList extends React.Component {
-  render() {
-    return (
-      <div className="shopping-list">
-        <h1>Shopping List for {this.props.name}</h1>
-        <ul>
-          <li>Instagram</li>
-          <li>WhatsApp</li>
-          <li>Oculus</li>
-        </ul>
-      </div>
-    );
-  }
-}
-*/
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
